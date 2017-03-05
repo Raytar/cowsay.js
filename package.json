@@ -1,0 +1,21 @@
+{
+  "name": "cowsay.js",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "src/cowsay.js",
+  "bin": {
+    "cowsay": "cli/cowsay.js",
+    "cowthink": "cli/cowthink.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John Ingve Olsen (johningveolsen@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "get-stdin": "^5.0.1",
+    "minimist": "^1.2.0",
+    "word-wrap": "^1.2.1"
+  }
+}
