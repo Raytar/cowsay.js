@@ -34,9 +34,16 @@ function bubble(text, wrap = 80, cowthink = false) {
             bottomRightCorner: '/',
         };
     }
-
     //detect the max line length
-    let lines = text.split('\n');
+    let lines;
+
+
+    try {
+        lines = text.split('\n');
+    } catch (err) {
+        throw new Error('Could not split text into lines: ' + err.message);
+    }
+
     let maxLineLength = lines[0].length;
     for (let i = 1; i < lines.length; i++) {
         if (lines[i].length > maxLineLength) {
@@ -74,11 +81,17 @@ function bubble(text, wrap = 80, cowthink = false) {
         if (lines.length === 1) {
             bubble += walls.left + pad(currLine) + walls.right;
         } else if (i === 0) {
-            bubble += walls.topLeftCorner || walls.left + pad(currLine) + walls.topRightCorner || walls.right;
+            bubble += (walls.topLeftCorner || walls.left)
+                    + pad(currLine)
+                    + (walls.topRightCorner || walls.right);
         } else if (i === lines.length - 1) {
-            bubble += walls.bottomLeftCorner || walls.left + pad(currLine) + walls.bottomRightCorner || walls.right;
+            bubble += (walls.bottomLeftCorner || walls.left)
+                    + pad(currLine)
+                    + (walls.bottomRightCorner || walls.right);
         } else {
-            bubble += walls.leftTall || walls.left + pad(currLine) + walls.rightTall || walls.right;
+            bubble += (walls.leftTall || walls.left)
+                    + pad(currLine)
+                    + (walls.rightTall || walls.right);
         }
 
         bubble += '\n';
