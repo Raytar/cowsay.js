@@ -1,5 +1,9 @@
 #!/usr/bin/env node
-const options = require('./cli.js');
+const getOptions = require('./cli.js');
 const cow = require('../src/cowsay.js');
 
-console.log(cow.think(options));
+getOptions().then(options => {
+    console.log(cow.think(options));
+}).catch(err => {
+    console.log(err.message);
+});
