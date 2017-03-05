@@ -41,7 +41,7 @@ function cowsay(options, cowthink) {
     options = setFace(options);
 
     if (options.l) {
-        return list();
+        options.text = list();
     }
 
     let output = bubble(options.text, options.W, cowthink);
@@ -122,5 +122,5 @@ function list() {
         files[index] = path.basename(file, '.cow.js');
     });
 
-    return files.join(' ');
+    return 'Available cows:\n\n' + files.join(' ');
 }
