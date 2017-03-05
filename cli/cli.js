@@ -5,7 +5,9 @@ function getOptions() {
     return new Promise((resolve) => {
         if (options.h) {
             options.text = `\
-Usage: {cowsay | cowthink} [options] [message]Options:
+Usage: {cowsay | cowthink} [options] [message]
+
+Options:
 
 -bdgpstwy modifiers
 -h help (this text)
