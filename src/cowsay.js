@@ -44,6 +44,8 @@ function cowsay(options, cowthink) {
         options.text = list();
     }
 
+    if (!options.text) options.text = '';
+
     let output = bubble(options.text, options.W, cowthink);
     try {
         output += cow(cowthink ? 'o' : '\\', options.e, options.T);
