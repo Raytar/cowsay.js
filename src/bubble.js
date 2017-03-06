@@ -34,14 +34,9 @@ function bubble(text, wrap = 80, cowthink = false) {
             bottomRightCorner: '/',
         };
     }
-    //detect the max line length
-    let lines;
 
-    try {
-        lines = text.split('\n');
-    } catch (err) {
-        throw new Error('Could not split text into lines: ' + err.message);
-    }
+    //detect the max line length
+    let lines = text.split('\n');
 
     let maxLineLength = lines[0].length;
     for (let i = 1; i < lines.length; i++) {
@@ -50,13 +45,16 @@ function bubble(text, wrap = 80, cowthink = false) {
         }
     }
 
-    wrap++;
-
     if (maxLineLength < wrap) {
         wrap = maxLineLength;
     } else {
         //wrap lines
-        lines = wordwrap(text, {width: wrap}).split('\n');
+        lines = wordwrap(text, {
+            width: wrap,
+            cut: true,
+            indent: '',
+            trim: true,
+        }).split('\n');
         //remove newlines
         lines = lines.map((line) => {
             return line.replace('\n', '');
@@ -74,7 +72,7 @@ function bubble(text, wrap = 80, cowthink = false) {
     //Sides + text
     for (let i = 0; i < lines.length; i++) {
         let currLine = lines[i];
-        let missingChars = wrap - currLine.length;
+        let missingChars = wrap - currLine.length - 1;
 
         if (missingChars > 0) {
             currLine += ' '.repeat(missingChars);
