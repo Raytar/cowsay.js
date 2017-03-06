@@ -37,7 +37,6 @@ function bubble(text, wrap = 80, cowthink = false) {
     //detect the max line length
     let lines;
 
-
     try {
         lines = text.split('\n');
     } catch (err) {
@@ -56,7 +55,10 @@ function bubble(text, wrap = 80, cowthink = false) {
     if (maxLineLength < wrap) {
         wrap = maxLineLength;
     } else {
-        lines = wordwrap(text, {width: wrap}).split('\n').forEach((line) => {
+        //wrap lines
+        lines = wordwrap(text, {width: wrap}).split('\n');
+        //remove newlines
+        lines = lines.map((line) => {
             return line.replace('\n', '');
         });
     }
