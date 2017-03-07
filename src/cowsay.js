@@ -36,10 +36,29 @@ exports.loadCow = loadCow;
 /**
  * Get the cow with options
  * @param {CowsayOptions} options
+ * @return {string}
  */
 function cowsay(options, cowthink) {
     let file = options.f || 'default';
     let cow = loadCow(file, customPath) || loadCow(file);
+
+    if (customPath) {
+        try {
+            cow = loadCow(file, customPath);
+        } catch (e) {
+            if (e instanceof TypeError) return e.message;
+            cow = null;
+        }
+    }
+
+    if (!cow) {
+        try {
+            cow = loadCow(file);
+        } catch (e) {
+            return e.message;
+        }
+    }
+
     options = setFace(options);
 
     if (options.l) {
@@ -53,7 +72,7 @@ function cowsay(options, cowthink) {
     try {
         output += cow(cowthink ? 'o' : '\\', options.e, options.T);
     } catch (e) {
-        throw new Error(`Problem with cowfile '${file}': ${e.message}`);
+        return `Problem with cowfile '${file}': ${e.message}`;
     }
 
     return output;
@@ -71,8 +90,11 @@ function loadCow(name, folder = path.join(__dirname, '../cows/')) {
     try {
         cow = require(path.join(folder, name) + '.cow.js');
     } catch (e) {
-        console.log(e.message);
-        return false;
+        throw new Error(`Could not load cowfile '${name}': ${e.message}`);
+    }
+
+    if (typeof cow !== 'function') {
+        throw new TypeError(`Problem with cowfile '${name}'.`);
     }
 
     return cow;
