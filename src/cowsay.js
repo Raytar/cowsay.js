@@ -30,6 +30,8 @@ exports.say = (options) => {
 exports.think = (options) => {
     return cowsay(options, true);
 };
+exports.list = list;
+exports.loadCow = loadCow;
 
 /**
  * Get the cow with options
@@ -41,7 +43,8 @@ function cowsay(options, cowthink) {
     options = setFace(options);
 
     if (options.l) {
-        options.text = list();
+        let files = list();
+        options.text = 'Available cows:\n\n' + files.join(' ');
     }
 
     if (!options.text) options.text = '';
@@ -105,7 +108,7 @@ function setFace(options) {
 }
 
 /**
- * @returns {string} a list of available cows, including cows in customPath
+ * @returns {string[]} a list of available cows, including cows in customPath
  */
 function list() {
     let files;
@@ -124,5 +127,5 @@ function list() {
         files[index] = path.basename(file, '.cow.js');
     });
 
-    return 'Available cows:\n\n' + files.join(' ');
+    return files;
 }
