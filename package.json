@@ -16,6 +16,6 @@
   "dependencies": {
     "get-stdin": "^5.0.1",
     "minimist": "^1.2.0",
-    "word-wrap": "^1.2.1"
+    "wordwrap": "^1.0.0"
   }
 }

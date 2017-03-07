@@ -1,4 +1,4 @@
-const wordwrap = require('word-wrap');
+const wordwrap = require('wordwrap');
 
 module.exports = bubble;
 
@@ -49,12 +49,7 @@ function bubble(text, wrap = 80, cowthink = false) {
         wrap = maxLineLength;
     } else {
         //wrap lines
-        lines = wordwrap(text, {
-            width: wrap,
-            cut: true,
-            indent: '',
-            trim: true,
-        }).split('\n');
+        lines = wordwrap(0, wrap, {mode: 'hard'})(text).split('\n');
         //remove newlines
         lines = lines.map((line) => {
             return line.replace('\n', '');
