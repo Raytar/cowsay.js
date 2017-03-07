@@ -35,6 +35,9 @@ function bubble(text, wrap = 80, cowthink = false) {
         };
     }
 
+    //replace tabs with spaces
+    text = text.replace(/\t+/g, '    ') //replace tabs with spaces
+
     //detect the max line length
     let lines = text.split('\n');
 
@@ -50,10 +53,6 @@ function bubble(text, wrap = 80, cowthink = false) {
     } else {
         //wrap lines
         lines = wordwrap(0, wrap, {mode: 'hard'})(text).split('\n');
-        //remove newlines
-        lines = lines.map((line) => {
-            return line.replace('\n', '');
-        });
     }
 
     const pad = (text, str = ' ') => {
@@ -67,7 +66,7 @@ function bubble(text, wrap = 80, cowthink = false) {
     //Sides + text
     for (let i = 0; i < lines.length; i++) {
         let currLine = lines[i];
-        let missingChars = wrap - currLine.length - 1;
+        let missingChars = wrap - currLine.length;
 
         if (missingChars > 0) {
             currLine += ' '.repeat(missingChars);
