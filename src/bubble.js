@@ -76,7 +76,7 @@ function bubble(text, wrap = 80, cowthink = false, offset = 0) {
         let missingChars = wrap - currLineText.length;
 
         if (missingChars > 0) {
-            currLine += ' '.repeat(missingChars);
+            currLineText += ' '.repeat(missingChars);
         }
 
         if (lines.length === 1) {
