@@ -8,9 +8,10 @@ module.exports = bubble;
  * @param {number} wrap The column to wrap the text const. Default 80
  * @param {boolean} cowthink Decides if a speech bubble or a thought bubble
  * should be created.
+ * @param {number} offset The column where the bubble will connects with the cow
  * @returns {string}
  */
-function bubble(text, wrap = 80, cowthink = false) {
+function bubble(text, wrap = 80, cowthink = false, offset = 0) {
     let walls;
 
     if (cowthink) {
@@ -59,38 +60,43 @@ function bubble(text, wrap = 80, cowthink = false) {
         return str + text + str;
     };
 
+    //calculate offset
+    if (offset > wrap + 4) offset -= wrap + 3;
+    else offset = 0;
+
     let bubble = '';
 
     //top
-    bubble += pad(walls.top.repeat(wrap + 2)) + '\n';
+    bubble += ' '.repeat(offset) + pad(walls.top.repeat(wrap + 2)) + '\n';
     //Sides + text
     for (let i = 0; i < lines.length; i++) {
-        let currLine = lines[i];
-        let missingChars = wrap - currLine.length;
+        let currLineText = lines[i];
+        let currLine = ' '.repeat(offset);
+        let missingChars = wrap - currLineText.length;
 
         if (missingChars > 0) {
             currLine += ' '.repeat(missingChars);
         }
 
         if (lines.length === 1) {
-            bubble += walls.left + pad(currLine) + walls.right;
+            currLine += walls.left + pad(currLineText) + walls.right;
         } else if (i === 0) {
-            bubble += (walls.topLeftCorner || walls.left)
-                    + pad(currLine)
+            currLine += (walls.topLeftCorner || walls.left)
+                    + pad(currLineText)
                     + (walls.topRightCorner || walls.right);
         } else if (i === lines.length - 1) {
-            bubble += (walls.bottomLeftCorner || walls.left)
-                    + pad(currLine)
+            currLine += (walls.bottomLeftCorner || walls.left)
+                    + pad(currLineText)
                     + (walls.bottomRightCorner || walls.right);
         } else {
-            bubble += (walls.leftTall || walls.left)
-                    + pad(currLine)
+            currLine += (walls.leftTall || walls.left)
+                    + pad(currLineText)
                     + (walls.rightTall || walls.right);
         }
 
-        bubble += '\n';
+        bubble += currLine + '\n';
     }
     //add bottom
-    bubble += pad(walls.bottom.repeat(wrap + 2)) + '\n';
+    bubble += ' '.repeat(offset) + pad(walls.bottom.repeat(wrap + 2)) + '\n';
     return bubble;
 }

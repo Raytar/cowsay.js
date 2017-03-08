@@ -68,12 +68,21 @@ function cowsay(options, cowthink) {
 
     if (!options.text) options.text = '';
 
-    let output = bubble(options.text, options.W, cowthink);
+    let output = '';
+    let thoughtsChar = cowthink ? 'o' : '\\';
+
     try {
-        output += cow(cowthink ? 'o' : '\\', options.e, options.T);
+        output += cow(thoughtsChar, options.e, options.T);
     } catch (e) {
         return `Problem with cowfile '${file}': ${e.message}`;
     }
+
+    //Determine the position of the bubble-connector thingy
+    let reg = new RegExp(`^.*?${thoughtsChar}.*?$`, 'm');
+    let match = reg.exec(output);
+    let offset = match ? match[0].indexOf(thoughtsChar) : 0;
+
+    output = bubble(options.text, options.W, cowthink, offset) + output;
 
     return output;
 }
