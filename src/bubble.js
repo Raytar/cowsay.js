@@ -61,7 +61,7 @@ function bubble(text, wrap = 80, cowthink = false, offset = 0) {
     };
 
     //calculate offset
-    if (offset > wrap + 4) offset -= wrap + 3;
+    if (offset > wrap + 3) offset -= wrap + 3;
     else offset = 0;
 
     let bubble = '';
