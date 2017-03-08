@@ -60,7 +60,8 @@ function bubble(text, wrap = 80, cowthink = false, offset = 0) {
         return str + text + str;
     };
 
-    //calculate offset
+    //calculate offset. the max offset is wrap + 3 because the bubble should
+    //connect on the same column as the right wall of the bubble.
     if (offset > wrap + 3) offset -= wrap + 3;
     else offset = 0;
 
