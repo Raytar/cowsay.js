@@ -37,7 +37,7 @@ function bubble(text, wrap = 80, cowthink = false, offset = 0) {
     }
 
     //replace tabs with spaces
-    text = text.replace(/\t+/g, '    '); //replace tabs with spaces
+    text = text.replace(/\t+/g, '    ');
 
     //detect the max line length
     let lines = text.split('\n');
