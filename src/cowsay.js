@@ -66,10 +66,13 @@ function cowsay(options, cowthink) {
         options.text = 'Available cows:\n\n' + files.join(' ');
     }
 
-    if (!options.text) options.text = '';
 
     let output = '';
     let thoughtsChar = cowthink ? 'o' : '\\';
+
+    if (!options.text) {
+        thoughtsChar = ' ';
+    }
 
     try {
         output += cow(thoughtsChar, options.e, options.T);
@@ -82,7 +85,10 @@ function cowsay(options, cowthink) {
     let match = reg.exec(output);
     let offset = match ? match[0].indexOf(thoughtsChar) : 0;
 
-    output = bubble(options.text, options.W, cowthink, offset) + output;
+    //add the bubble if there is text
+    if (options.text) {
+        output = bubble(options.text, options.W, cowthink, offset) + output;
+    }
 
     return output;
 }
