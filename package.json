@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
-  "main": "src/cowsay.js",
+  "main": "cowsay.js",
   "bin": {
     "cowsay": "cli/cowsay.js",
     "cowthink": "cli/cowthink.js"
