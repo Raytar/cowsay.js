@@ -99,7 +99,7 @@ function cowsay(options, cowthink) {
  * @param {folder} folder the folder where the cowfile is located
  * @returns {function} a function that generates the cow.
  */
-function loadCow(name, folder = path.join(__dirname, '../cows/')) {
+function loadCow(name, folder = path.join(__dirname, 'cows/')) {
     let cow;
 
     try {
@@ -151,7 +151,7 @@ function list() {
     let files;
 
     try {
-        files = fs.readdirSync(path.join(__dirname, '../cows/'));
+        files = fs.readdirSync(path.join(__dirname, 'cows/'));
         if (customPath) files.concat(fs.readdirSync(customPath));
     } catch (e) {
         throw new Error('Failed to list cows: ' + e.message);
