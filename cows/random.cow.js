@@ -1,4 +1,4 @@
-const cowsay = require('../src/cowsay');
+const cowsay = require('../cowsay');
 
 let cows = cowsay.list();
 //remove this file from the cows list
