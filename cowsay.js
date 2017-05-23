@@ -80,13 +80,12 @@ function cowsay(options, cowthink) {
         return `Problem with cowfile '${file}': ${e.message}`;
     }
 
-    //Determine the position of the bubble-connector thingy
-    let reg = new RegExp(`^.*?${thoughtsChar}.*?$`, 'm');
-    let match = reg.exec(output);
-    let offset = match ? match[0].indexOf(thoughtsChar) : 0;
-
     //add the bubble if there is text
     if (options.text) {
+        //Determine the position of the bubble-connector thingy
+        let reg = new RegExp(`^.*?${thoughtsChar}.*?$`, 'm');
+        let match = reg.exec(output);
+        let offset = match ? match[0].indexOf(thoughtsChar) : 0;
         output = bubble(options.text, options.W, cowthink, offset) + output;
     }
 
